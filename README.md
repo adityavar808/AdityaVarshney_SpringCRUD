@@ -30,50 +30,11 @@ This project is a Spring Boot REST API that performs CRUD operations on a `stude
 - `email` - Student email and must be unique
 - `course` - Student course
 
-## Project Structure
+## PostgreSQL Setup
 
-```text
-src/main/java/com/example/studentcrud
-|- controller
-|- exception
-|- model
-|- repository
-|- service
-|- StudentcrudApplication.java
-
-src/main/resources
-|- application.properties
-|- schema.sql
-```
-
-## Current Database Configuration
-
-The project is currently configured with these values in `src/main/resources/application.properties`:
-
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/studentCRUD
-spring.datasource.username=postgres
-spring.datasource.password=root
-spring.datasource.driver-class-name=org.postgresql.Driver
-```
-
-If your PostgreSQL setup is different, update:
-
-- `spring.datasource.url`
-- `spring.datasource.username`
-- `spring.datasource.password`
-
-## Prerequisites
-
-- Java 21 installed
-- PostgreSQL installed and running
-- A PostgreSQL database created for this project
-
-## Database Setup
-
-Create the database used by the project. The current application properties expect a database named `studentCRUD`.
-
-Windows PowerShell example:
+1. Create a database named `studentdb`.
+2. Update `src/main/resources/application.properties` if your PostgreSQL username, password, or port is different.
+3. Start the application with:
 
 ```powershell
 & "C:\Program Files\PostgreSQL\18_new\bin\psql.exe" -U postgres -c "CREATE DATABASE \"studentCRUD\";"
