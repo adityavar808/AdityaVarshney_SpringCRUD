@@ -30,14 +30,34 @@ This project is a Spring Boot REST API that performs CRUD operations on a `stude
 - `email` - Student email and must be unique
 - `course` - Student course
 
+## Current Database Configuration
+
+The project is currently configured in `src/main/resources/application.properties` with:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/studentCRUD
+spring.datasource.username=postgres
+spring.datasource.password=root
+spring.datasource.driver-class-name=org.postgresql.Driver
+```
+
+If your PostgreSQL setup is different, update the URL, username, or password before running the project.
+
 ## PostgreSQL Setup
 
-1. Create a database named `studentdb`.
-2. Update `src/main/resources/application.properties` if your PostgreSQL username, password, or port is different.
-3. Start the application with:
+1. Make sure PostgreSQL is installed and running.
+2. Create a database named `studentCRUD`.
 
 ```powershell
 & "C:\Program Files\PostgreSQL\18_new\bin\psql.exe" -U postgres -c "CREATE DATABASE \"studentCRUD\";"
+```
+
+3. If your PostgreSQL username, password, host, or port is different, update `src/main/resources/application.properties`.
+4. Start the Spring Boot application:
+
+```powershell
+cd p:\studentcrud\studentcrud
+.\mvnw.cmd spring-boot:run
 ```
 
 If the database already exists, PostgreSQL will show an error saying it already exists. That is fine.
@@ -46,7 +66,7 @@ The `students` table does not need to be created manually. It is created automat
 
 ## How To Run
 
-Open PowerShell and run:
+Open PowerShell and run the project:
 
 ```powershell
 cd p:\studentcrud\studentcrud
