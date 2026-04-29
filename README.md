@@ -20,7 +20,7 @@ This project is a Spring Boot REST API that uses `JdbcTemplate` and PostgreSQL t
 
 ## PostgreSQL Setup
 
-1. Create a database named `studentdb`.
+1. Create a database named `studentCRUD`.
 2. Update `src/main/resources/application.properties` if your PostgreSQL username, password, or port is different.
 3. Start the application with:
 
