@@ -20,6 +20,9 @@ This project is a Spring Boot REST API that performs CRUD operations on a `stude
 - Spring Web
 - Spring JDBC
 - PostgreSQL
+- React
+- Tailwind CSS 3
+- Vite
 - Maven
 - H2 for tests
 
@@ -64,7 +67,19 @@ If the database already exists, PostgreSQL will show an error saying it already 
 
 The `students` table does not need to be created manually. It is created automatically from `schema.sql` when the application starts.
 
-## How To Run
+## Frontend Overview
+
+A separate React frontend is available in the `frontend` folder. It connects to the Spring Boot backend and provides:
+
+- create student form
+- live student list
+- search by name, email, or course
+- update student flow
+- delete student flow
+- success and error messages from the API
+- Tailwind CSS 3 based responsive UI
+
+## How To Run The Backend
 
 Open PowerShell and run the project:
 
@@ -80,6 +95,47 @@ http://localhost:8080
 ```
 
 To stop the application, press `Ctrl + C`.
+
+## How To Run The React Frontend
+
+Open a second PowerShell window and run:
+
+```powershell
+cd p:\studentcrud\studentcrud\frontend
+npm install
+npm run dev
+```
+
+Vite will start the frontend on:
+
+```text
+http://localhost:5173
+```
+
+The frontend now uses the Vite development proxy by default, so requests from the browser go to:
+
+```text
+/students
+```
+
+Vite forwards those requests to the Spring Boot backend at:
+
+```text
+http://localhost:8080
+```
+
+If your backend runs somewhere else, create a `.env` file inside `frontend` and add:
+
+```text
+VITE_API_BASE_URL=http://localhost:8080
+```
+
+## Full Stack Startup Order
+
+1. Start PostgreSQL
+2. Start the Spring Boot backend on port `8080`
+3. Start the React frontend on port `5173`
+4. Open `http://localhost:5173`
 
 ## How To Run Tests
 
@@ -287,6 +343,16 @@ Check:
 - Java 21 is installed
 - PostgreSQL is running on the expected port
 - The database credentials are correct
+
+### Problem: `Failed to fetch` in the frontend
+
+Check:
+
+- Spring Boot backend is running on `http://localhost:8080`
+- React frontend is running with `npm run dev` on `http://localhost:5173`
+- You restarted the frontend after changing `.env`
+- You are opening the Vite app URL, not the built `dist` files directly
+- If you changed the backend host or port, set `VITE_API_BASE_URL` correctly
 
 ## Notes
 
