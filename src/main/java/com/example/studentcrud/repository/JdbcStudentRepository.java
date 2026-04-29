@@ -9,8 +9,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -37,7 +37,7 @@ public class JdbcStudentRepository implements StudentRepository {
         jdbcTemplate.update(connection -> {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO students (name, email, course) VALUES (?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
+                    new String[]{"id"}
             );
             statement.setString(1, student.getName());
             statement.setString(2, student.getEmail());
@@ -45,9 +45,12 @@ public class JdbcStudentRepository implements StudentRepository {
             return statement;
         }, keyHolder);
 
-        Number key = keyHolder.getKey();
-        if (key != null) {
-            student.setId(key.intValue());
+        Map<String, Object> generatedKeys = keyHolder.getKeys();
+        if (generatedKeys != null) {
+            Object id = generatedKeys.getOrDefault("id", generatedKeys.get("ID"));
+            if (id instanceof Number generatedId) {
+                student.setId(generatedId.intValue());
+            }
         }
 
         return student;
